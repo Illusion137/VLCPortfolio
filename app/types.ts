@@ -1,0 +1,1 @@
+export type PageType = "home"|"portfolio"|"demo_reel"|"contact"|"media_library"|"connected_player";
