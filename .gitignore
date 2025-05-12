@@ -1,7 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-TVVYX1RPS0VOX0lEPSI0ZmMyODcwOC0yMzA0LTRhZGMtYWFiOS0wNDM1YTE4YTQ1ODYiCk1VWF9UT0tFTl9TRUNSRVQ9InplSHRUWTIzQkVUbkFtZFdzb0pRaXE0eUFVQXJFL0R3TGYxRmJuaDZpeTcwK1BVSm5NT2xFV1VIUjJweFBlclNKSEcyNnR6MVV4YSI=
-
 # dependencies
 /node_modules
 /.pnp
@@ -11,6 +9,8 @@ TVVYX1RPS0VOX0lEPSI0ZmMyODcwOC0yMzA0LTRhZGMtYWFiOS0wNDM1YTE4YTQ1ODYiCk1VWF9UT0tF
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+
+/videos/*.mp4
 
 # testing
 /coverage

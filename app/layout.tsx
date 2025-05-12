@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
-import localFont from "next/font/local";
 import "./globals.css";
-
-const noyh = localFont({
-	src: "../public/fonts/noyh-slim-semi-light.ttf",
-	display: "swap",
-	variable: "--font-noyh",
-});
 
 // const geistSans = Geist({
 // 	variable: "--font-geist-sans",
@@ -30,7 +23,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={`${noyh.variable}`}>
+		<html lang="en">
 			<body>{children}</body>
 		</html>
 	);

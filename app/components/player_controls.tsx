@@ -27,7 +27,6 @@ export default function PlayerControls(props: {
 }) {
 	const { connected_player_ref, set_connected_player_props } = props;
 
-
 	useEffect(() => {
 		set_connected_player_props({
 			onCanPlay: () => {
@@ -44,7 +43,7 @@ export default function PlayerControls(props: {
 	const [duration, set_duration] = useState<number|undefined>(connected_player_ref.current?.duration);
 
 	return (
-		<div className="text-black bg-white w-1/1">
+		<div className="text-black bg-white w-1/1 h-15">
 			<div className="flex flex-row justify-between ml-3 mr-3">
 				<p className="text-sm min-w-6">{duration_to_string(current_time).duration}</p>
                 <input

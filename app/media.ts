@@ -1,6 +1,17 @@
+import last_time from '../videos/last_time.mp4.json';
+import robotics from '../videos/robotics.mp4.json';
+import snack_shack from '../videos/snack_shack.mp4.json';
+import portable_album from '../videos/portable_album.mp4.json';
+import alone_newsroom from '../videos/alone_newsroom.mp4.json';
+import grinch_jerktonium from '../videos/grinch_jerktonium.mp4.json';
+import hand_washing_guys from '../videos/hand_washing_guys.mp4.json';
+import rambling_rumors from '../videos/rambling_rumors.mp4.json';
+import colby from '../videos/colby.mp4.json';
+import demo_reel_2025 from '../videos/demo_reel_2025.mp4.json';
+
 export interface VLCMedia {
     title: string;
-    file_path: string;
+    media_json: typeof last_time;
     thumbnail_path: string;
     duration: number;
     date: Date;
@@ -11,7 +22,7 @@ export interface VLCMedia {
 export const all_media: VLCMedia[] = [
     {
         title: "The Last Time - Director's Cut",
-        file_path: "last_time.mp4",
+        media_json: last_time,
         thumbnail_path: "last_time.png",
         duration: 360 + 20,
         date: new Date("May 5, 2025"),
@@ -20,7 +31,7 @@ export const all_media: VLCMedia[] = [
     },
     {
         title: "Robotics Newspackage",
-        file_path: "robotics.mp4",
+        media_json: robotics,
         thumbnail_path: "robotics.png",
         duration: 60 + 20,
         date: new Date("Feburary 11, 2025"),
@@ -29,7 +40,7 @@ export const all_media: VLCMedia[] = [
     },
     {
         title: "Snack Shack Newspackage",
-        file_path: "snack_shack.mp4",
+        media_json: snack_shack,
         thumbnail_path: "snack_shack.png",
         duration: 55,
         date: new Date("April 24, 2025"),
@@ -38,7 +49,7 @@ export const all_media: VLCMedia[] = [
     },
     {
         title: "Portable Video Album Intro",
-        file_path: "portable_album.mp4",
+        media_json: portable_album,
         thumbnail_path: "portable_album.png",
         duration: 5,
         date: new Date("May 1, 2025"),
@@ -47,7 +58,7 @@ export const all_media: VLCMedia[] = [
     },
     {
         title: "Alone in the Newsroom",
-        file_path: "alone_newsroom.mp4",
+        media_json: alone_newsroom,
         thumbnail_path: "alone_newsroom.png",
         duration: 120 + 17,
         date: new Date("March 5, 2025"),
@@ -56,7 +67,7 @@ export const all_media: VLCMedia[] = [
     },
     {
         title: "The Grinch That Made Jerktonium",
-        file_path: "grinch_jerktonium.mp4",
+        media_json: grinch_jerktonium,
         thumbnail_path: "grinch_jerktonium.png",
         duration: 120 + 31,
         date: new Date("December 16, 2024"),
@@ -65,7 +76,7 @@ export const all_media: VLCMedia[] = [
     },
     {
         title: "Hand Washing Guys",
-        file_path: "hand_washing_guys.mp4",
+        media_json: hand_washing_guys,
         thumbnail_path: "hand_washing_guys.png",
         duration: 60 + 24,
         date: new Date("May 15, 2024"),
@@ -74,7 +85,7 @@ export const all_media: VLCMedia[] = [
     },
     {
         title: "Rambling Rumors",
-        file_path: "rambling_rumors.mp4",
+        media_json: rambling_rumors,
         thumbnail_path: "rambling_rumors.png",
         duration: 120 + 35,
         date: new Date("May 20, 2023"),
@@ -83,7 +94,7 @@ export const all_media: VLCMedia[] = [
     },
     // {
     //     title: "Isaiah Edit (Snippet)",
-    //     file_path: "isaiah_edit_snippet.mp4",
+    //     file_path: isaiah_edit_snippet,
     //     thumbnail_path: "isaiah_edit_snippet.png",
     //     duration: 4,
     //     date: new Date("January 21, 2024"),
@@ -92,29 +103,29 @@ export const all_media: VLCMedia[] = [
     // },
     {
         title: "Colby - BTV Intro Animation",
-        file_path: "colby.mp4",
+        media_json: colby,
         thumbnail_path: "colby.png",
         duration: 5,
         date: new Date("September 10, 2024"),
         roles: ["Animator"],
         about: "An animation of the BTV mascot Colby in a run cycle",
     },
-    {
-        title: "HomuraA",
-        file_path: "homura_a.mp4",
-        thumbnail_path: "homura_a.png",
-        duration: 3,
-        date: new Date("April 20, 2024"),
-        roles: ["Animator"],
-        about: "A recreation of a animation of Homura",
-    },
     // {
-    //     title: "Demo Reel (2025)",
-    //     file_path: "demo_reel_2025.mp4",
-    //     thumbnail_path: "demo_reel_2025.png",
-    //     duration: 60 + 30,
-    //     date: new Date("May 11, 2025"),
-    //     roles: ["Editor", "VFX"],
-    //     about: "A demo reel showcasing all of my works up till 2025",
+    //     title: "HomuraA",
+    //     file_path: homura_a,
+    //     thumbnail_path: "homura_a.png",
+    //     duration: 3,
+    //     date: new Date("April 20, 2024"),
+    //     roles: ["Animator"],
+    //     about: "A recreation of a animation of Homura",
     // },
+    {
+        title: "Demo Reel (2025)",
+        media_json: demo_reel_2025,
+        thumbnail_path: "demo_reel_2025.png",
+        duration: 60 + 30,
+        date: new Date("May 11, 2025"),
+        roles: ["Editor", "VFX"],
+        about: "A demo reel showcasing all of my works up till 2025",
+    },
 ];
