@@ -9,6 +9,7 @@ import Portfolio from './components/portfolio';
 import MediaLibrary from './components/media_library';
 import Video from 'next-video';
 import { all_media, VLCMedia } from './media';
+import Image from 'next/image';
 
 function GetMainComponent(page: PageType, play_video: (media: VLCMedia) => void){
     switch(page){
@@ -22,6 +23,7 @@ function GetMainComponent(page: PageType, play_video: (media: VLCMedia) => void)
 
 export default function MainPage() {
     const [page, set_page] = useState<PageType>("home");
+    const [is_media_loading, set_is_media_loading] = useState<boolean>(true);
     const [connected_player_props, set_connected_player_props] = useState<React.ComponentPropsWithoutRef<typeof Video>>({});
     const connected_player_ref = useRef<HTMLVideoElement>(null);
 
@@ -46,13 +48,14 @@ export default function MainPage() {
                     { page === "connected_player" || page === "demo_reel" ? 
                         (
                             <div className="flex h-[calc(100vh-60px)] overflow-auto bg-black justify-center items-center">
-                                <Video ref={connected_player_ref} muted={false} controls={false } src={playing_media.media_json as never} {...connected_player_props}/>
+                                {is_media_loading ?  <Image alt="Illusi-Logo" className='max-w-1/5 absolute' width={150} height={150} src='/logo.png'/> : null } 
+                                <Video style={{opacity: is_media_loading ? 0 : 1}} ref={connected_player_ref} muted={true} controls={false } src={playing_media.media_json as never} {...connected_player_props}/>
                             </div>
                         )
                         : GetMainComponent(page, play_video) }
                 </div>
             </div>
-            <PlayerControls set_connected_player_props={set_connected_player_props} connected_player_ref={connected_player_ref} />
+            <PlayerControls set_is_media_loading={set_is_media_loading} set_connected_player_props={set_connected_player_props} connected_player_ref={connected_player_ref} />
 		</div>
 	);
 }

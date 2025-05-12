@@ -7,7 +7,7 @@ export default function Home(props: {
 
     const demo_reel_media = all_media.find(media => media.title === "Demo Reel (2025)")!
     return (
-        <div className="flex h-1/1 bg-black flex-row">
+        <div className="flex h-[calc(100vh-60px)] overflow-auto bg-black flex-row">
             <div className="w-1/3 m-20 mt-20">
                 <h1 className="font-semibold text-5xl w-90">{"Hi, I'm Daniel, a Videographer"}</h1>
                 <h2 className='mt-3'>--Subtext--</h2>
