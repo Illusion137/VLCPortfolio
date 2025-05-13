@@ -49,7 +49,7 @@ export default function MainPage() {
                     { page === "connected_player" || page === "demo_reel" ? 
                         (
                             <div className="flex h-[calc(100vh-60px)] overflow-auto bg-black justify-center items-center">
-                                {is_media_loading ? <Image alt="Illusi-Logo" className='max-w-1/5 absolute' width={150} height={150} src='/logo.png'/> : null } 
+                                {is_media_loading ? <Image alt="Illusi-Logo" className='max-w-1/5 absolute' width={150} height={150} src='/logo.webp'/> : null } 
                                 <Video className='max-h-full' style={{opacity: is_media_loading ? 0 : 1}} ref={connected_player_ref} muted={false} controls={false} src={playing_media.media_json as never} {...connected_player_props}/>
                             </div>
                         )
