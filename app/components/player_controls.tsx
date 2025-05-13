@@ -3,18 +3,33 @@ import {
 	useEffect,
     useState,
 } from "react";
-import { FaPlay, FaStop, FaBackward, FaForward, FaPause } from "react-icons/fa";
+import { IoPauseSharp, IoPlaySharp } from "react-icons/io5";
+import { FaFastForward, FaFastBackward, FaStop } from "react-icons/fa";
+import { MdFullscreen } from "react-icons/md";
+import { ImLoop } from "react-icons/im";
+import { RiPlayList2Fill } from "react-icons/ri";
+import { IoMdShuffle } from "react-icons/io";
+import { duration_to_string, random_of } from "../utils";
+import { all_media, VLCMedia } from "../media";
 import Video from "next-video";
-import { duration_to_string } from "../utils";
 
-
-export function PlayerControlsButton(props: {
+export function PlayerControlsButtonLarge(props: {
 	children: React.ReactNode;
 	on_press: () => void
 }) {
 	return (
-		<button className="flex justify-center bg-gray-300 w-5 h-5 rounded-xs border-black border-1 p-3" onClick={props.on_press}>
-			<p className="text-gray-700 self-center">{props.children}</p>
+		<button className="flex justify-center bg-white hover:bg-sky-100 hover:border-sky-600 w-7 h-7 rounded-md border-black border-1 p-[15px]" onClick={props.on_press}>
+			<p className="text-neutral-500 self-center text-2xl">{props.children}</p>
+		</button>
+	);
+}
+export function PlayerControlsButtonSmall(props: {
+	children: React.ReactNode;
+	on_press: () => void;
+}) {
+	return (
+		<button className="flex justify-center bg-white hover:bg-sky-100 hover:border-sky-600 w-5 h-5 rounded-sm border-black border-1 p-[11px] mx-0.5" onClick={props.on_press}>
+			<p className="text-neutral-500 self-center text-md">{props.children}</p>
 		</button>
 	);
 }
@@ -23,6 +38,8 @@ export default function PlayerControls(props: {
 	connected_player_ref: RefObject<HTMLVideoElement | null>;
 	set_connected_player_props: React.Dispatch<React.SetStateAction<React.ComponentPropsWithoutRef<typeof Video>>>;
 	set_is_media_loading: React.Dispatch<React.SetStateAction<boolean>>;
+    set_sidebar_visible: React.Dispatch<React.SetStateAction<boolean>>;
+    play_video: (media: VLCMedia) => void;
 }) {
 	const { connected_player_ref, set_connected_player_props } = props;
 	const [current_time, set_current_time] = useState<number|undefined>(connected_player_ref.current?.currentTime);
@@ -45,6 +62,22 @@ export default function PlayerControls(props: {
 				set_is_playing(playing => !playing);
 			}
 		}
+
+        const handle_arrow_keys = (event: KeyboardEvent) => {
+            if(!connected_player_ref.current) return;
+            if(event.key === "ArrowLeft"){
+				connected_player_ref.current.currentTime = Math.max(connected_player_ref.current.currentTime - 5, 0);
+            }
+            else if(event.key === "ArrowRight"){
+				connected_player_ref.current.currentTime = Math.min(connected_player_ref.current.currentTime + 5, connected_player_ref.current.duration);
+            }
+            else if(event.key === "ArrowUp"){
+				connected_player_ref.current.volume = Math.min(connected_player_ref.current.volume + 0.05, 1);
+            }
+            else if(event.key === "ArrowDown"){
+				connected_player_ref.current.volume = Math.max(connected_player_ref.current.volume - 0.05, 0.01);
+            }
+        }
 
 		set_connected_player_props(() => ({
 			onCanPlay: () => {
@@ -70,14 +103,16 @@ export default function PlayerControls(props: {
 		}));
 
 		window.addEventListener('keypress', handle_spacebar);
+		window.addEventListener('keydown', handle_arrow_keys);
 
 		return () => {
-			window.removeEventListener('keydown', handle_spacebar);
+			window.removeEventListener('keypress', handle_spacebar);
+			window.removeEventListener('keydown', handle_arrow_keys);
 		};
 	}, []);
 
 	return (
-		<div className="text-black bg-white w-1/1 h-15">
+		<div className="text-black bg-zinc-100 w-1/1 h-15">
 			<div className="flex flex-row justify-between ml-3 mr-3">
 				<p className="text-sm min-w-6">{duration_to_string(current_time).duration}</p>
                 <input
@@ -95,25 +130,61 @@ export default function PlayerControls(props: {
                     step={0.01}/>
 				<p className="text-sm min-w-6">{duration_to_string(duration).duration}</p>
 			</div>
-			<div className="flex flex-row ml-1 mr-2 space-x-2 pb-2">
-				<PlayerControlsButton on_press={() => set_is_playing(playing => !playing)}>
-					{is_playing ? <FaPause/> : <FaPlay />}
-				</PlayerControlsButton>
-				<PlayerControlsButton on_press={() => {
+			<div className="flex flex-row ml-1 mr-2 space-x-2 pb-0 items-center">
+				<PlayerControlsButtonLarge on_press={() => set_is_playing(playing => !playing)}>
+					{is_playing ? <IoPauseSharp/> : <IoPlaySharp  />}
+				</PlayerControlsButtonLarge>
+                <div className="mx-1.5"/>
+				<PlayerControlsButtonSmall on_press={() => {
 					if(connected_player_ref.current?.currentTime)
-						connected_player_ref.current.currentTime = 0;
+                        if(connected_player_ref.current.currentTime - 5 < 0){
+                            connected_player_ref.current.currentTime = 0;
+                        }
+                        else {
+                            connected_player_ref.current.currentTime -= 5;
+                        }
 					}}>
-					<FaBackward />
-				</PlayerControlsButton>
-				<PlayerControlsButton on_press={() => set_is_playing(false)}>
-					<FaStop />
-				</PlayerControlsButton>
-				<PlayerControlsButton on_press={() => {
+					<FaFastBackward />
+				</PlayerControlsButtonSmall>
+				<PlayerControlsButtonSmall on_press={() => set_is_playing(false)}>
+					<FaStop  />
+				</PlayerControlsButtonSmall>
+				<PlayerControlsButtonSmall on_press={() => {
 					if(connected_player_ref.current?.currentTime)
-						connected_player_ref.current.currentTime += 10;
+						connected_player_ref.current.currentTime += 5;
 					}}>
-					<FaForward />
-				</PlayerControlsButton>
+					<FaFastForward />
+				</PlayerControlsButtonSmall>
+                <div className="mx-1.5"/>
+				<PlayerControlsButtonSmall on_press={() => { props.connected_player_ref.current?.requestFullscreen({navigationUI: "show"}) }}>
+					<MdFullscreen/>
+				</PlayerControlsButtonSmall>
+
+				<PlayerControlsButtonSmall on_press={() => { props.set_sidebar_visible(is_visible => !is_visible); }}>
+					<RiPlayList2Fill/>
+				</PlayerControlsButtonSmall>
+                <PlayerControlsButtonSmall on_press={() => { set_connected_player_props(prop => ({...prop, loop: !prop.loop})) }}>
+					<ImLoop/>
+				</PlayerControlsButtonSmall>
+                <PlayerControlsButtonSmall on_press={() => { props.play_video(random_of(all_media)); }}>
+					<IoMdShuffle/>
+				</PlayerControlsButtonSmall>
+                
+                <div className="grow"/>
+                <input
+					className="w-1/8 ml-3 mr-1"
+					type="range"
+					value={volume ?? 0}
+                    min={0.01}
+					max={1}
+					onChange={(event) => {
+						const new_volume = Number(event.target.value);
+						set_volume(new_volume);
+						if(connected_player_ref.current?.volume){
+							connected_player_ref.current.volume = volume;
+						}
+					}}
+                step={0.01}/>
 			</div>
 		</div>
 	);

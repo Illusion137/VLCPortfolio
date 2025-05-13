@@ -12,3 +12,8 @@ export function duration_to_string(track_duration: number|undefined): {left: num
         return {left: 50, duration: `${String(minutes)}:${String(seconds).padStart(2,'0')}`};
     } else return {left: 58, duration: `0:${String(track_duration).padStart(2,'0')}`};
 }
+
+export function random_of<T>(arr: T[]): T {
+    const randidx = Math.floor(Math.random() * (Math.floor(arr.length) - 0) + 0);
+    return arr[randidx];
+}

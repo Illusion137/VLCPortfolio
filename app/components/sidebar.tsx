@@ -29,7 +29,7 @@ export default function Sidebar(props: {
     const page_title = props.current_page.split('_').map(str => str.split('').map((s,i) => i === 0 ? s.toUpperCase() : s).join('')).join(' ');
     return (
         <div className="flex-1/4 min-w-35 max-w-50 container bg-zinc-100">
-            <h1 className="text-black font-bold ml-1">{page_title}</h1>
+            <h1 className="text-black font-black ml-1 font-stretch-expanded">{page_title}</h1>
             <SidebarButton text="Home" current_page={props.current_page} set_page={props.set_page}><FaHome/></SidebarButton>
             <SidebarButton text="Portfolio" current_page={props.current_page} set_page={props.set_page}><IoLibrarySharp/></SidebarButton>
             <SidebarButton text="Media Library" current_page={props.current_page} set_page={props.set_page}><FaPhotoVideo/></SidebarButton>
