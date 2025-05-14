@@ -17,3 +17,15 @@ export function random_of<T>(arr: T[]): T {
     const randidx = Math.floor(Math.random() * (Math.floor(arr.length) - 0) + 0);
     return arr[randidx];
 }
+
+export function between(num: number, low: number, high: number): boolean{
+    return num >= low && num <= high;
+}
+
+export function clamp(num: number, low: number, high: number): number{
+    return num < low ? 
+        low : 
+        num > high ? 
+            high : 
+            num;
+}

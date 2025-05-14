@@ -12,6 +12,7 @@ export default function Home(props: {
             <div className="w-1/3 m-20 mt-20">
                 <h1 className="font-semibold text-5xl w-90">{"Hi, I'm Daniel, a Videographer"}</h1>
                 <h2 className='mt-3'>--Subtext--</h2>
+                {/* <Image className='w-114 h-156 absolute bottom-[60px] opacity-50' width={200} height={250} style={{objectFit: 'cover'}} src="/dog_ranbozo.webp" alt="DogRanbozo"/> */}
             </div>
             <div className='grid grid-row-3 mt-20'>
                 <div>
@@ -20,7 +21,7 @@ export default function Home(props: {
                 </div>
                 <div>
                     <h2 className='font-extrabold text-2xl'>About Me</h2>
-                    <p>Im a Videographer that likes to work with many different</p>
+                    <p>Im a Videographer that likes to work with many different mediums such as Directing, Screenwriting, Editing, VFX, 3D Modeling & Animation, and 2D Animation.</p>
                 </div>
                 <div>
                     <h2 className='font-extrabold text-2xl'>My Workflow</h2>

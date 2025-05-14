@@ -12,6 +12,7 @@ import { IoMdShuffle } from "react-icons/io";
 import { duration_to_string, random_of } from "../utils";
 import { all_media, VLCMedia } from "../media";
 import Video from "next-video";
+import VolumeSlider from "./volume_slider";
 
 export function PlayerControlsButtonLarge(props: {
 	children: React.ReactNode;
@@ -84,6 +85,8 @@ export default function PlayerControls(props: {
 				props.set_is_media_loading(false);
 				connected_player_ref.current?.play();
 				set_duration(connected_player_ref.current?.duration ? connected_player_ref.current?.duration : 0);
+				if(connected_player_ref.current?.volume)
+					connected_player_ref.current.volume = volume;
 			},
 			onTimeUpdate: () => {
 				set_current_time(connected_player_ref.current?.currentTime ? connected_player_ref.current?.currentTime : 0);
@@ -116,7 +119,7 @@ export default function PlayerControls(props: {
 			<div className="flex flex-row justify-between ml-3 mr-3">
 				<p className="text-sm min-w-6">{duration_to_string(current_time).duration}</p>
                 <input
-					className="w-1/1 ml-3 mr-3"
+					className="w-1/1 ml-3 mr-3 appearance-none bg-transparent [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-sky-600 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[10px] [&::-webkit-slider-thumb]:w-[10px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-500"
 					type="range"
 					value={current_time ?? 0}
 					max={duration}
@@ -171,7 +174,7 @@ export default function PlayerControls(props: {
 				</PlayerControlsButtonSmall>
                 
                 <div className="grow"/>
-                <input
+                {/* <input
 					className="w-1/8 ml-3 mr-1"
 					type="range"
 					value={volume ?? 0}
@@ -184,7 +187,8 @@ export default function PlayerControls(props: {
 							connected_player_ref.current.volume = volume;
 						}
 					}}
-                step={0.01}/>
+                step={0.01}/> */}
+				<VolumeSlider value={volume} set_value={set_volume}/>
 			</div>
 		</div>
 	);
