@@ -14,6 +14,7 @@ import { all_media, VLCMedia } from "../media";
 import Video from "next-video";
 import VolumeSlider from "./volume_slider";
 import PlaybackSlider from "./playback_slider";
+import { Tooltip } from "react-tooltip";
 
 export function PlayerControlsButtonLarge(props: {
 	children: React.ReactNode;
@@ -163,19 +164,27 @@ export default function PlayerControls(props: {
 					<FaFastForward />
 				</PlayerControlsButtonSmall>
                 <div className="mx-1.5"/>
-				<PlayerControlsButtonSmall on_press={() => { props.connected_player_ref.current?.requestFullscreen({navigationUI: "show"}) }}>
-					<MdFullscreen/>
-				</PlayerControlsButtonSmall>
+                <div className="mx-0" data-tooltip-id='subcontrols-tooltips' data-tooltip-content="Fullscreen" data-tooltip-place='top'>
+                    <PlayerControlsButtonSmall on_press={() => { props.connected_player_ref.current?.requestFullscreen({navigationUI: "show"}) }}>
+                        <MdFullscreen/>
+                    </PlayerControlsButtonSmall>
+                </div>
+                <div className="mx-0" data-tooltip-id='subcontrols-tooltips' data-tooltip-content="Toggle Sidebar" data-tooltip-place='top'>
+                    <PlayerControlsButtonSmall on_press={() => { props.set_sidebar_visible(is_visible => !is_visible); }}>
+                        <RiPlayList2Fill/>
+                    </PlayerControlsButtonSmall>
+                </div>
+                <div className="mx-0" data-tooltip-id='subcontrols-tooltips' data-tooltip-content="Loop" data-tooltip-place='top'>
+                    <PlayerControlsButtonSmall on_press={() => { set_connected_player_props(prop => ({...prop, loop: !prop.loop})) }}>
+                        <ImLoop/>
+                    </PlayerControlsButtonSmall>
+                </div>
+                <div className="mx-0" data-tooltip-id='subcontrols-tooltips' data-tooltip-content="Play Random Video" data-tooltip-place='top'>
+                    <PlayerControlsButtonSmall on_press={() => { props.play_video(random_of(all_media)); }}>
+                        <IoMdShuffle/>
+                    </PlayerControlsButtonSmall>
+                </div>
 
-				<PlayerControlsButtonSmall on_press={() => { props.set_sidebar_visible(is_visible => !is_visible); }}>
-					<RiPlayList2Fill/>
-				</PlayerControlsButtonSmall>
-                <PlayerControlsButtonSmall on_press={() => { set_connected_player_props(prop => ({...prop, loop: !prop.loop})) }}>
-					<ImLoop/>
-				</PlayerControlsButtonSmall>
-                <PlayerControlsButtonSmall on_press={() => { props.play_video(random_of(all_media)); }}>
-					<IoMdShuffle/>
-				</PlayerControlsButtonSmall>
                 
                 <div className="grow"/>
                 {/* <input
@@ -194,6 +203,7 @@ export default function PlayerControls(props: {
                 step={0.01}/> */}
 				<VolumeSlider value={volume} set_value={set_volume} connected_player_ref={connected_player_ref}/>
 			</div>
+            <Tooltip delayShow={500} style={{backgroundColor: 'white', color: "black", paddingTop: 0, paddingBottom: 0, paddingLeft: 5, paddingRight: 5,  "--rt-opacity": 1}} id="subcontrols-tooltips" />
 		</div>
 	);
 }
