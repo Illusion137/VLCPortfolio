@@ -139,30 +139,38 @@ export default function PlayerControls(props: {
 				<p className="text-sm min-w-6">{duration_to_string(duration).duration}</p>
 			</div>
 			<div className="flex flex-row ml-1 mr-2 space-x-2 pb-0 items-center">
-				<PlayerControlsButtonLarge on_press={() => set_is_playing(playing => !playing)}>
-					{is_playing ? <IoPauseSharp/> : <IoPlaySharp  />}
-				</PlayerControlsButtonLarge>
+				<div data-tooltip-id='subcontrols-tooltips' data-tooltip-content="Play/Pause" data-tooltip-place='top'>
+					<PlayerControlsButtonLarge on_press={() => set_is_playing(playing => !playing)}>
+						{is_playing ? <IoPauseSharp/> : <IoPlaySharp  />}
+					</PlayerControlsButtonLarge>
+				</div>
                 <div className="mx-1.5"/>
-				<PlayerControlsButtonSmall on_press={() => {
-					if(connected_player_ref.current?.currentTime)
-                        if(connected_player_ref.current.currentTime - 5 < 0){
-                            connected_player_ref.current.currentTime = 0;
-                        }
-                        else {
-                            connected_player_ref.current.currentTime -= 5;
-                        }
-					}}>
-					<FaFastBackward />
-				</PlayerControlsButtonSmall>
-				<PlayerControlsButtonSmall on_press={() => set_is_playing(false)}>
-					<FaStop  />
-				</PlayerControlsButtonSmall>
-				<PlayerControlsButtonSmall on_press={() => {
-					if(connected_player_ref.current?.currentTime)
-						connected_player_ref.current.currentTime += 5;
-					}}>
-					<FaFastForward />
-				</PlayerControlsButtonSmall>
+                <div className="mx-0" data-tooltip-id='subcontrols-tooltips' data-tooltip-content="Rewind 5 Seconds" data-tooltip-place='top'>
+					<PlayerControlsButtonSmall on_press={() => {
+						if(connected_player_ref.current?.currentTime)
+							if(connected_player_ref.current.currentTime - 5 < 0){
+								connected_player_ref.current.currentTime = 0;
+							}
+							else {
+								connected_player_ref.current.currentTime -= 5;
+							}
+						}}>
+						<FaFastBackward />
+					</PlayerControlsButtonSmall>
+				</div>
+				<div className="mx-0" data-tooltip-id='subcontrols-tooltips' data-tooltip-content="Stop" data-tooltip-place='top'>
+					<PlayerControlsButtonSmall on_press={() => set_is_playing(false)}>
+						<FaStop  />
+					</PlayerControlsButtonSmall>
+				</div>
+				<div className="mx-0" data-tooltip-id='subcontrols-tooltips' data-tooltip-content="Skip 5 Seconds" data-tooltip-place='top'>
+					<PlayerControlsButtonSmall on_press={() => {
+						if(connected_player_ref.current?.currentTime)
+							connected_player_ref.current.currentTime += 5;
+						}}>
+						<FaFastForward />
+					</PlayerControlsButtonSmall>
+				</div>
                 <div className="mx-1.5"/>
                 <div className="mx-0" data-tooltip-id='subcontrols-tooltips' data-tooltip-content="Fullscreen" data-tooltip-place='top'>
                     <PlayerControlsButtonSmall on_press={() => { props.connected_player_ref.current?.requestFullscreen({navigationUI: "show"}) }}>
@@ -203,7 +211,7 @@ export default function PlayerControls(props: {
                 step={0.01}/> */}
 				<VolumeSlider value={volume} set_value={set_volume} connected_player_ref={connected_player_ref}/>
 			</div>
-            <Tooltip delayShow={500} style={{backgroundColor: 'white', color: "black", paddingTop: 0, paddingBottom: 0, paddingLeft: 5, paddingRight: 5,  "--rt-opacity": 1}} id="subcontrols-tooltips" />
+            <Tooltip delayShow={100} style={{backgroundColor: 'white', color: "black", paddingTop: 0, paddingBottom: 0, paddingLeft: 5, paddingRight: 5,  "--rt-opacity": 1}} id="subcontrols-tooltips" />
 		</div>
 	);
 }

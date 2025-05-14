@@ -15,10 +15,10 @@ function SidebarButton(props: {
     const page_id = props.text.trim().toLowerCase().replaceAll(' ', '_');
     const selected = page_id === props.current_page;
     return (
-        <button aria-label={String(selected)} onClick={() => props.set_page(page_id as PageType)} className="flex flex-row mb-1 w-1/1 hover:bg-blue-200">
+        <a aria-label={"selected" + selected}  id={page_id} href={"#" + page_id} onClick={() => props.set_page(page_id as PageType)} className="target flex flex-row mb-1 w-1/1 hover:bg-blue-200 target:bg-neutral-300">
             <p className="flex text-amber-500 self-center ml-2 mr-2.5 text-2xl">{props.children}</p>
             <p className="flex text-black self-center text-sm">{props.text}</p>
-        </button>
+        </a>
     );
 }
 export default function Sidebar(props: {
