@@ -13,6 +13,7 @@ import { duration_to_string, random_of } from "../utils";
 import { all_media, VLCMedia } from "../media";
 import Video from "next-video";
 import VolumeSlider from "./volume_slider";
+import PlaybackSlider from "./playback_slider";
 
 export function PlayerControlsButtonLarge(props: {
 	children: React.ReactNode;
@@ -47,6 +48,7 @@ export default function PlayerControls(props: {
 	const [duration, set_duration] = useState<number|undefined>(connected_player_ref.current?.duration);
 	const [is_playing, set_is_playing] = useState<boolean>(false);
 	const [volume, set_volume] = useState<number>(1.0);
+	const [is_media_loading, set_is_media_loading] = useState<boolean>(false);
 
 	useEffect(() => {
 		if(is_playing === true){
@@ -82,11 +84,12 @@ export default function PlayerControls(props: {
 
 		set_connected_player_props(() => ({
 			onCanPlay: () => {
+				if(connected_player_ref.current?.volume && is_media_loading === true)
+					connected_player_ref.current.volume = volume;
 				props.set_is_media_loading(false);
+                set_is_media_loading(false);
 				connected_player_ref.current?.play();
 				set_duration(connected_player_ref.current?.duration ? connected_player_ref.current?.duration : 0);
-				if(connected_player_ref.current?.volume)
-					connected_player_ref.current.volume = volume;
 			},
 			onTimeUpdate: () => {
 				set_current_time(connected_player_ref.current?.currentTime ? connected_player_ref.current?.currentTime : 0);
@@ -118,7 +121,7 @@ export default function PlayerControls(props: {
 		<div className="text-black bg-zinc-100 w-1/1 h-15">
 			<div className="flex flex-row justify-between ml-3 mr-3">
 				<p className="text-sm min-w-6">{duration_to_string(current_time).duration}</p>
-                <input
+                {/* <input
 					className="w-1/1 ml-3 mr-3 appearance-none bg-transparent [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-sky-600 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[10px] [&::-webkit-slider-thumb]:w-[10px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-500"
 					type="range"
 					value={current_time ?? 0}
@@ -130,7 +133,8 @@ export default function PlayerControls(props: {
 							connected_player_ref.current.currentTime = new_time;
 						}
 					}}
-                    step={0.01}/>
+                    step={0.01}/> */}
+                    <PlaybackSlider time={current_time} set_time={set_current_time} connected_player_ref={connected_player_ref}/>
 				<p className="text-sm min-w-6">{duration_to_string(duration).duration}</p>
 			</div>
 			<div className="flex flex-row ml-1 mr-2 space-x-2 pb-0 items-center">
@@ -188,7 +192,7 @@ export default function PlayerControls(props: {
 						}
 					}}
                 step={0.01}/> */}
-				<VolumeSlider value={volume} set_value={set_volume}/>
+				<VolumeSlider value={volume} set_value={set_volume} connected_player_ref={connected_player_ref}/>
 			</div>
 		</div>
 	);

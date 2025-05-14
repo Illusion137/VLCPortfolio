@@ -41,6 +41,21 @@ export default function MainPage() {
         }
     },[page]);
 
+    useEffect(() => {
+        const handle_resize = () => {
+            set_media_container_height(window.document.getElementById("MediaContainer")?.clientHeight ?? 500);
+        };
+
+		window.addEventListener('resize', handle_resize);
+        set_media_container_height(window.document.getElementById("MediaContainer")?.clientHeight ?? 500);
+		
+        return () => {
+			window.removeEventListener('resize', handle_resize);
+		};
+    }, []);
+
+    const [media_container_height, set_media_container_height] = useState(500);
+
 	return (
 		<div className="flex h-screen w-screen flex-col bg-zinc-100" aria-label="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
             <div className="flex flex-1 max-h-700 flex-row w-1/1 ">
@@ -48,9 +63,9 @@ export default function MainPage() {
                 <div className="flex-3/4 bg-white border-gray-500 border-2">
                     { page === "connected_player" || page === "demo_reel" ? 
                         (
-                            <div className="flex h-[calc(100vh-60px)] overflow-auto bg-black justify-center items-center">
+                            <div onLoad={() => {set_media_container_height(document.getElementById("MediaContainer")?.clientHeight ?? 500);}} id="MediaContainer" className="flex h-[calc(100vh-60px)] max-h-[calc(100vh-60px)] overflow-auto bg-black justify-center items-center">
                                 {is_media_loading ? <Image alt="Illusi-Logo" className='max-w-1/5 absolute' width={150} height={150} src='/logo.webp'/> : null } 
-                                <Video className='max-h-full' style={{opacity: is_media_loading ? 0 : 1}} ref={connected_player_ref} muted={false} controls={false} src={playing_media.media_json as never} {...connected_player_props}/>
+                                <Video height={media_container_height} className='max-h-full' style={{opacity: is_media_loading ? 0 : 1}} ref={connected_player_ref} muted={false} controls={false} src={playing_media.media_json as never} {...connected_player_props}/>
                             </div>
                         )
                         : GetMainComponent(page, play_video) }
