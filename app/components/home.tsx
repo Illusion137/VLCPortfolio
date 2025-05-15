@@ -12,18 +12,18 @@ export default function Home(props: {
     const last_time_media = all_media.find(media => media.title === "The Last Time - Director's Cut")!
     return (
         <div className="flex h-[calc(100vh-60px)] overflow-auto bg-white text-black flex-row">
-            <Image draggable={false} className='w-60 h-76 right-[0px] bottom-[57px] absolute z-0 stroke-10' width={200} height={250} src="/dog_ranbozo.webp" alt="DogRanbozo"/>
+            <Image data-tooltip-content="Me :D (Daniel Raygoza)" data-tooltip-id='workflow-logo' data-tooltip-place='top' draggable={false} className='w-2/11 max-w-[300px] right-[0px] bottom-[57px] absolute' width={200} height={250} src="/dog_ranbozo.webp" alt="DogRanbozo"/>
             <div className="w-1/3 m-20 mt-20">
                 <div className='flex flex-row'>
                     <h1 className="font-semibold text-5xl">{"Hi, I'm Daniel"}</h1>
-                    <Image className='relative invert-25 bottom-1.5 w-[60px] h-[60px] ' alt={"Logo"} key={"Logo"} width={60} height={60} src={`/logo.webp`}/>
+                    <Image data-tooltip-content={`${new Date().getFullYear()}, Illusive`} data-tooltip-id='workflow-logo' className='relative invert-25 bottom-1.5 w-[60px] h-[60px] ' alt={"Logo"} key={"Logo"} width={60} height={60} src={`/logo.webp`}/>
                 </div>
-                <h2 className='mt-3'>A videographer that works in many different positions in film such as Directing, Screenwriting, Editing, VFX, 3D Modeling & Animation, and 2D Animation.</h2>
+                <h2 className='mt-3'>A videographer that works in many different positions in film such as directing, screenwriting, editing, VFX, 3D modeling & animation, and 2D animation.</h2>
                 <h2 className='mt-3'>{"Most of my work is in short-films, however I've also worked on 2D animations, on advertisements, and also worked on news packages for "}<a className='text-blue-500' href='https://www.youtube.com/@BuenaFilmTV'>Buena Film&TV
                 </a>.</h2>
-                <h2 className='mt-3'>This website design was inspired by the <a className='text-blue-500' href='https://www.videolan.org/vlc/'>VLC Media Player.</a></h2>
-                <h2 className='mt-3'>{"I'm most proud of "}<i>{"The Last Time - Director's Cut. "}</i>The original cut won 2nd place in the 9th Annual Buena Film Festival.</h2>
+                <h2 className='mt-3'>{"I'm most proud of "}<i>{"The Last Time - Director's Cut. "}</i>The original cut won 2nd place in the 9th Annual Buena Film Festival. This short film demonstrates the use of audio mixing, sound design, cinematography, color grading, VFX, transitions and graphics.</h2>
                 <Image data-tooltip-id='double-click-video' data-tooltip-content="Double click video to play" data-tooltip-place='top-end' className='hover:opacity-70 my-8' onDoubleClick={() => {props.play_video(last_time_media)}} alt={last_time_media.title} key={last_time_media.title} width={640} height={360} src={`https://image.mux.com/${last_time_media.media_json.providerMetadata.mux.playbackId}/animated.gif?width=320&height=180&fps=8&start=4&end=10`}/>
+                <h2 className='mt-3'>This website design is inspired by the <a className='text-blue-500' href='https://www.videolan.org/vlc/'>VLC Media Player.</a></h2>
             </div>
             <div className='flex flex-col mt-20'>
                 <div>
@@ -35,7 +35,7 @@ export default function Home(props: {
                     <h2 className='font-extrabold text-2xl'>My Workflow</h2>
                     <h3 className='text-xl'>2020-2023</h3>
                     <div className="flex flex-row space-x-4">
-                        <Image data-tooltip-content="Shotcut - Video Editor" data-tooltip-id='workflow-logo' data-tooltip-place='top'  src="/shotcut-logo.webp" alt="Shotcut" width={workflow_img_size} height={workflow_img_size} />
+                        <Image data-tooltip-content="Shotcut - Video Editor" data-tooltip-id='workflow-logo' data-tooltip-place='top' src="/shotcut-logo.webp" alt="Shotcut" width={workflow_img_size} height={workflow_img_size} />
                         <Image data-tooltip-content="HitFilm Express - Video Editor" data-tooltip-id='workflow-logo' data-tooltip-place='top' src="/hitfilm-express-icon.webp" alt="Hitfilm Express" width={workflow_img_size} height={workflow_img_size} />
                         <Image data-tooltip-content="CapCut - Video Editor" data-tooltip-id='workflow-logo' data-tooltip-place='top' src="/capcut.webp" alt="Hitfilm Express" width={workflow_img_size} height={workflow_img_size} />
                         <Image data-tooltip-content="Audacity - Audio Editor" data-tooltip-id='workflow-logo' data-tooltip-place='top' src="/Audacity_Logo.webp" alt="Audacity" width={workflow_img_size} height={workflow_img_size} />

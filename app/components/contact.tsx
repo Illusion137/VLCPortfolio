@@ -9,11 +9,11 @@ export default function Contact(){
                 <div className="m-30">
                     <div className="flex flex-row">
                         <h1 className="font-semibold text-5xl min-w-50">Email</h1>
-                        <h2 className="font-extrabold text-4xl">raygoza.d@hotmail.com</h2>
+                        <h2 className="font-extrabold text-4xl text-neutral-700">raygoza.d@hotmail.com</h2>
                     </div>
                     <div className="flex flex-row">
                         <h1 className="font-semibold text-5xl min-w-50">Phone</h1>
-                        <h2 className="font-extrabold text-4xl">(520) 210-2324</h2>
+                        <h2 className="font-extrabold text-4xl text-neutral-700">(520) 210-2324</h2>
                     </div>
                     <h1 className="font-semibold text-5xl min-w-50">Socials</h1>
                     <div className="flex flex-row items-center mt-4">
